@@ -1,0 +1,26 @@
+//
+// Card columns
+//
+
+
+.card-columns-2 {
+    column-count: 2 !important;
+}
+
+.card-columns-3 {
+    @include media-breakpoint-up(lg) {
+        column-count: 3 !important;
+    }
+    @include media-breakpoint-down(lg) {
+        column-count: 2 !important;
+    }
+    @include media-breakpoint-down(sm) {
+        column-count: 1 !important;
+    }
+}
+
+.card-columns-4 {
+    @include media-breakpoint-up(lg) {
+        column-count: 4 !important;
+    }
+}

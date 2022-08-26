@@ -1,0 +1,208 @@
+//
+// Application layout
+//
+
+.application {
+    opacity: 0;
+
+    // &:not(.modal-open) {
+    //     @include transition($transition-base);
+    // }
+
+    &.ready {
+        opacity: 1;
+    }
+
+    // Container
+
+    .container-application {
+        max-width: 1420px;
+        overflow-x: hidden;
+        display: flex;
+        align-items: flex-start;
+        padding-left: 0;
+        padding-right: 0;
+
+        @include media-breakpoint-up(sm) {
+            .page-content,
+            .footer {
+                padding-left: $grid-gutter-width;
+                padding-right: $grid-gutter-width;
+            }
+        }
+
+        @include media-breakpoint-down(sm) {
+            .page-content,
+            .footer {
+                padding-left: $grid-gutter-width / 2;
+                padding-right: $grid-gutter-width / 2;
+            }
+        }
+    }
+
+    // Navbar
+
+    .navbar {
+        margin-bottom: 1.5rem;
+        padding-left: 0;
+        padding-right: 0;
+
+        .container,
+        .container-fluid {
+            width: calc(100% + #{$grid-gutter-width});
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
+    .navbar-collapse {
+        padding-left: $grid-gutter-width;
+        padding-right: $grid-gutter-width;
+
+        @include media-breakpoint-down(sm) {
+            padding-left: $grid-gutter-width / 2;
+            padding-right: $grid-gutter-width / 2;
+        }
+    }
+
+    // Main content
+
+    .main-content {
+        width: 100%;
+        overflow: hidden;
+
+        .container,
+        .container-fluid {
+            position: relative;
+        }
+    }
+
+    .page-title {
+        +.row,
+        +.card {
+            margin-top: 1.5rem;
+        }
+    }
+
+    // Sidenav
+
+    .sidenav {
+        display: none;
+
+        &.show {
+            display: block;
+            margin-left: $grid-gutter-width * 2;
+            width: $navbar-vertical-open-width;
+            min-width: $navbar-vertical-open-width;
+
+            @include media-breakpoint-up(xl) {
+                + .main-content {
+                    max-width: calc(100% - #{$navbar-vertical-open-width});
+                    padding-left: $grid-gutter-width * 2;
+                }
+            }
+
+            @include media-breakpoint-between(sm, lg) {
+                + .main-content {
+                    min-width: 100%;
+                    transform: translateX($grid-gutter-width);
+                }
+            }
+
+            @include media-breakpoint-down(sm) {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow-y: scroll;
+                padding-left: calc((100% - #{$navbar-vertical-open-width}) / 2);
+                padding-right: calc((100% - #{$navbar-vertical-open-width}) / 2);
+                overflow-y: scroll;
+                background: #fff;
+                margin-left: 0;
+                z-index: 1040;
+                @include box-shadow($box-shadow);
+
+                &:before  {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    z-index: -1;
+                    pointer-events: none;
+                    height: $application-container-bg-height;
+                    background-color: $application-container-bg-color;
+                    border-bottom-left-radius: $application-container-border-radius;
+                }
+
+                + .main-content {
+                    pointer-events: none;
+                    overflow: hidden;
+                    height: 100%;
+                }
+            }
+        }
+
+        .nav-application {
+            margin-top: 50px;
+        }
+    }
+
+    // Sidenav header
+
+    .sidenav-header {
+        padding: 1.5rem 0;
+        margin-bottom: 1.5rem;
+
+        .navbar-brand {
+            img {
+                height: 1.5rem;
+            }
+        }
+    }
+
+    // Sidenav user
+
+    .sidenav-user {
+        height: 290px;
+    }
+
+    // Page title
+
+    .page-title {
+        + .nav-tabs {
+            margin-bottom: $grid-gutter-width;
+        }
+    }
+}
+
+// Sidenav settings applied on the body tag
+
+.sidenav-pinned {
+    @include media-breakpoint-down(sm) {
+        // overflow: hidden;
+        // height: 100vh;
+    }
+}
+
+// Offset applcation by adding a fixed shape on top of the screen
+
+.application-offset {
+    .container-application {
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: -1;
+            pointer-events: none;
+            height: $application-container-bg-height;
+            background-color: $application-container-bg-color;
+            border-bottom-left-radius: $application-container-border-radius;
+        }
+    }
+}

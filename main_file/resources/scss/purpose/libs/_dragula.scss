@@ -1,0 +1,30 @@
+//
+// Dragula
+//
+
+.draggable-item {
+    cursor: grab;
+}
+
+.gu-mirror {
+    position: fixed !important;
+    margin: 0 !important;
+    z-index: 9999 !important;
+    opacity: 1;
+    transform: translate3d(-4px, -4px, 0) rotateZ(2deg);
+    cursor: grabbing;
+    @include box-shadow($box-shadow-lg);
+}
+
+.gu-hide {
+    display: none !important
+}
+
+.gu-unselectable {
+    user-select: none !important
+}
+
+.gu-transit {
+    opacity: .1;
+
+}

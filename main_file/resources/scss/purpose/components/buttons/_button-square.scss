@@ -1,0 +1,28 @@
+//
+// Button square
+//
+
+.btn-square-lg {
+    width: 150px !important;
+    height: 150px !important;
+}
+
+.btn-square {
+    width: 108px !important;
+    height: 108px !important;
+    padding: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.btn-square-sm {
+    width: 50px !important;
+    height: 50px !important;
+}
+
+.btn-square-xs {
+    width: 25px !important;
+    height: 25px !important;
+}

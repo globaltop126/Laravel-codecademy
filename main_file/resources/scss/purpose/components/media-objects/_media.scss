@@ -1,0 +1,35 @@
+//
+// Media
+//
+
+.media {
+    > i {
+        position: relative;
+        top: 4px;
+    }
+}
+
+// Media pill
+
+.media-pill {
+    position: relative;
+    padding: 2px;
+    padding-right: 1rem;
+    background-color: rgba($black, .15);
+    @include border-radius($rounded-pill);
+    @include transition($transition-base);
+
+    &:hover {
+        background-color: rgba($black, .3);
+    }
+
+    .avatar {
+        display: inline;
+    }
+}
+
+.show {
+    .media-pill {
+        background-color: rgba($black, .3);
+    }
+}

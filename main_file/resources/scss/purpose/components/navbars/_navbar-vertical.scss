@@ -1,0 +1,281 @@
+//
+// Vertical navbar + Sidenav
+//
+
+
+.navbar-vertical {
+    padding-top: 0;
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    @if $enable-shadows {
+        box-shadow: $navbar-vertical-box-shadow;
+    }
+
+    // Navbar light
+
+    &.navbar-light {
+        background-color: $navbar-light-bg;
+        border-color: $navbar-light-border-color;
+    }
+
+
+    // Navbar dark
+
+    &.navbar-dark {
+        background-color: $navbar-dark-bg;
+        border-color: $navbar-dark-border-color;
+    }
+
+
+    // Navbar brand
+
+    .navbar-brand {
+        margin-right: 0;
+    }
+
+
+    // Navbar collapse
+
+    @include media-breakpoint-up(md) {
+        .navbar-collapse {
+            margin-left: -$navbar-padding-x;
+            margin-right: -$navbar-padding-x;
+        }
+    }
+
+
+    // Navbar navigaton
+
+    .navbar-nav {
+        margin-left: -$navbar-padding-x;
+        margin-right: -$navbar-padding-x;
+
+
+        // Navbar link
+
+        .nav-link {
+            padding-left: $navbar-padding-x;
+            padding-right: $navbar-padding-x;
+            font-size: $navbar-nav-link-font-size;
+            font-weight: $navbar-nav-link-font-weight;
+
+            &.active {
+                position: relative;
+
+            }
+
+
+            // Icon
+
+            > i {
+                min-width: $navbar-icon-min-width;
+                margin-right: 0;
+                font-size: .9375rem;
+                line-height: ($font-size-base * $line-height-base);
+            }
+
+
+            // Dropdown
+
+            .dropdown-menu {
+                border: none;
+
+                .dropdown-menu {
+                    margin-left: $dropdown-item-padding-x / 2;
+                }
+            }
+        }
+
+        .nav-sm {
+            .nav-link {
+                font-size: .8125rem;
+            }
+        }
+    }
+
+
+    // Navbar navigation
+
+    .navbar-nav .nav-link {
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-nav .nav-link[data-toggle="collapse"] {
+        &:after {
+            display: inline-block;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            font-family: $icon-font-family;
+            font-weight: 700;
+            content: "\f105";
+            margin-left: auto;
+            color: $gray-400;
+            @include transition($transition-base);
+        }
+
+        // Expanded
+        &[aria-expanded="true"] {
+            &:after {
+                color: theme-color("primary");
+                transform: rotate(90deg);
+            }
+        }
+    }
+
+    // Second level
+    .navbar-nav .nav .nav-link {
+        padding-left: $navbar-padding-x + $navbar-icon-min-width;
+    }
+
+    // Third level
+    .navbar-nav .nav .nav .nav-link {
+        padding-left: $navbar-padding-x * 1.5 + $navbar-icon-min-width;
+    }
+
+
+    // Navbar heading
+    .navbar-heading {
+        padding-top: $nav-link-padding-y;
+        padding-bottom: $nav-link-padding-y;
+        font-size: $font-size-xs;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+    }
+
+
+    // Expanded navbar specific styles
+
+    &.navbar-expand {
+        @each $breakpoint, $dimension in $grid-breakpoints {
+            &-#{$breakpoint} {
+                @include media-breakpoint-up(#{$breakpoint}) {
+                    display: block;
+                    width: 100%;
+                    max-width: $navbar-vertical-width;
+                    overflow-y: auto;
+                    padding-left: 0;
+                    padding-right: 0;
+
+                    &.fixed-left,
+                    &.fixed-right {
+                        position: fixed;
+                        top: 0;
+                        bottom: 0;
+                    }
+
+                    .navbar-inner {
+                        padding-left: $navbar-vertical-padding-x;
+                        padding-right: $navbar-vertical-padding-x;
+                    }
+
+                    // Container
+                    >[class*="container"] {
+                        flex-direction: column;
+                        align-items: stretch;
+                        min-height: 100%;
+                        padding-left: 0;
+                        padding-right: 0; // Target IE 10 & 11
+                        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+                            min-height: none;
+                            height: 100%;
+                        }
+                    }
+
+
+                    // Fixes the vertical navbar to the left
+                    &.fixed-left {
+                        left: 0;
+                        border-width: 0 $navbar-vertical-border-width 0 0;
+                    }
+
+
+                    // Fixed the vertical navbar to the right
+                    &.fixed-right {
+                        right: 0;
+                        border-width: 0 0 0 $navbar-vertical-border-width;
+                    }
+
+
+                    // Navbar collapse
+                    .navbar-collapse {
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: stretch;
+                        margin-left: -$navbar-vertical-padding-x;
+                        margin-right: -$navbar-vertical-padding-x;
+                        padding-left: $navbar-vertical-padding-x;
+                        padding-right: $navbar-vertical-padding-x;
+                        opacity: 1;
+
+                        > * {
+                            min-width: 100%;
+                        }
+                    }
+
+
+                    // Navbar navigation
+
+                    .navbar-nav {
+                        flex-direction: column;
+                        margin-left: -$navbar-vertical-padding-x;
+                        margin-right: -$navbar-vertical-padding-x;
+                    }
+
+                    .navbar-nav .nav-link {
+                        padding: $navbar-vertical-nav-link-padding-y $navbar-vertical-nav-link-padding-x;
+                    }
+
+                    .navbar-nav > .nav-item {
+                        margin-top: 2px;
+
+                        > .nav-link {
+                            &.active {
+                                background: $gray-100;
+                                margin-right: .5rem;
+                                margin-left: .5rem;
+                                padding-left: 1rem;
+                                padding-right: 1rem;
+                                border-radius: $border-radius;
+                            }
+                        }
+                    }
+
+                    // Second level
+                    .navbar-nav .nav .nav-link {
+                        padding-top: $navbar-vertical-nav-link-padding-y / 1.5;
+                        padding-bottom: $navbar-vertical-nav-link-padding-y / 1.5;
+                        padding-left: $navbar-vertical-padding-x + $navbar-icon-min-width;
+                    }
+
+
+                    // Third level
+                    .navbar-nav .nav .nav .nav-link {
+                        padding-left: $navbar-vertical-padding-x * 1.5 + $navbar-icon-min-width;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+// Offsets the main content depending on the sidebar positioning
+
+// .navbar-vertical.navbar-expand {
+//     @each $breakpoint, $dimension in $grid-breakpoints {
+//         &-#{$breakpoint} {
+//             @include media-breakpoint-up(#{$breakpoint}) {
+//                 &.fixed-left + .main-content {
+//                     margin-left: $navbar-vertical-open-width;
+//                 }
+//                 &.fixed-right + .main-content {
+//                     margin-right: $navbar-vertical-open-width;
+//                 }
+//             }
+//         }
+//     }
+// }

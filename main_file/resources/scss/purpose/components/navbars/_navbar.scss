@@ -1,0 +1,343 @@
+//
+// Navbar
+//
+
+
+.navbar {
+    position: relative;
+    z-index: 101;
+
+    .container {
+        position: relative;
+    }
+}
+
+.navbar-nav {
+    .nav-link {
+        font-size: $navbar-nav-link-font-size;
+        font-weight: $navbar-nav-link-font-weight;
+        text-transform: $navbar-nav-link-text-transform;
+        letter-spacing: $navbar-nav-link-letter-spacing;
+        @include transition($navbar-transition);
+
+        i, svg, img {
+            margin-right: .5rem;
+        }
+    }
+
+    .media-pill {
+        .avatar {
+            width: 36px;
+            height: 36px;
+        }
+    }
+}
+
+.nav-link {
+    > img {
+        width: auto;
+        height: 14px;
+        margin-right: .5rem;
+        position: relative;
+        top: -1px;
+    }
+}
+
+.navbar-text {
+    font-size: $navbar-nav-link-font-size;
+}
+
+.navbar-user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+// Modifiers
+
+.navbar-shadow {
+    @include box-shadow($navbar-box-shadow);
+}
+
+// Transition to main navbar to topbar
+
+.header,
+.navbar,
+.navbar-top {
+    @include transition($transition-base);
+}
+
+// Borders
+.navbar-border {
+    &.navbar-dark {
+        border-bottom: 1px solid rgba($white, .1) !important;
+
+        .navbar-collapse {
+            &.collapsing,
+            &.show {
+                border-top: 1px solid rgba($white, .1) !important;
+            }
+        }
+    }
+
+    &.navbar-light {
+        border-bottom: 1px solid rgba($black, .04) !important;
+
+        .navbar-collapse {
+            &.collapsing,
+            &.show {
+                border-top: 1px solid rgba($black, .04) !important;
+            }
+        }
+    }
+}
+
+// Transparent navbar
+.header-transparent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    .navbar-top {
+        &:not(.navbar-collapsed) {
+            background-color: transparent !important;
+        }
+
+        border: 0;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .navbar:not(.sticky):not(.navbar-collapsed) {
+        background-color: transparent !important;
+        border: 0;
+        box-shadow: none;
+    }
+
+    + main section:first-child:not([data-spotlight]) {
+        .container {
+            padding-top: 5rem;
+        }
+    }
+}
+
+// Header
+// class used to create a fullscreen container for the main navs
+
+.header-collapse-show {
+    min-height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+// Sticky navbar
+.navbar-sticky {
+    position: -webkit-sticky;
+
+    &.sticky {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        top: -100px;
+        transform: translateY(100px);
+        z-index: $zindex-fixed;
+        border-top: 0;
+        @include transition($transition-base);
+    }
+}
+
+// Top navbar
+.navbar-top {
+    position: relative;
+    z-index: 110;
+    display: flex;
+    align-items: center;
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+
+    .navbar-nav {
+        flex-direction: row;
+
+        .nav-item:last-child {
+            margin-right: 0;
+        }
+
+        .nav-link {
+            padding: .5rem .5rem;
+        }
+    }
+}
+
+
+// Generate series of `.navbar-expand-*` responsive classes for configuring
+// where your navbar collapses.
+
+.navbar-expand {
+    @each $breakpoint in map-keys($grid-breakpoints) {
+        $next: breakpoint-next($breakpoint, $grid-breakpoints);
+        $infix: breakpoint-infix($next, $grid-breakpoints);
+
+        &#{$infix} {
+            @include media-breakpoint-down($breakpoint) {
+
+                .navbar-collapse {
+                    padding-top: .75rem;
+                    margin-top: .75rem;
+                }
+
+                &.navbar-collapsed {
+                    height: 100vh;
+                    align-items: start;
+                    overflow-y: scroll;
+                }
+
+                // Brand
+                .navbar-brand {
+                    img {
+                        height: 1.25rem;
+                    }
+
+                    &.dropdown-toggle {
+                        &:after {
+                            float: none;
+                            font-size: 1rem;
+                            opacity: .6;
+                        }
+
+                        &:hover {
+                            &:after {
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+
+                // Navbar nav
+                .navbar-nav {
+                    &:not(.flex-row) {
+                        .nav-link {
+                            padding: .625rem 0;
+                        }
+
+                        .dropdown-menu {
+                            box-shadow: none;
+                            min-width: auto;
+
+                            .media {
+                                svg {
+                                    width: 30px;
+                                }
+                            }
+                        }
+                    }
+
+                    &.flex-row {
+                        .nav-link {
+                            padding-left: .675rem;
+                            padding-right: .675rem;
+                        }
+
+                        .dropdown {
+                            position: static;
+                        }
+
+                        .dropdown-menu {
+                            width: calc(100% - #{$grid-gutter-width});
+                            position: absolute;
+                            top: 60px;
+                            left: $grid-gutter-width / 2;
+                            right: auto;
+                        }
+                    }
+                }
+
+                .navbar-collapse-fade {
+                    z-index: 1050;
+                    height: auto !important;
+                    opacity: 0;
+
+                    &.collapsing,
+                    &.show {
+                        animation: show-navbar-collapse .2s ease forwards;
+                        animation-delay: .15s;
+                    }
+
+                    &.collapsing-out {
+                        opacity: 0;
+                        transition: opacity .3s linear;
+                        animation-delay: 0;
+                        animation: none;
+                    }
+                }
+            }
+
+            @include media-breakpoint-up($next) {
+                // Brand
+                .navbar-brand {
+                    img {
+                        height: 1.5rem;
+                    }
+
+                    &.dropdown-toggle {
+                        &:after {
+                            display: none;
+                        }
+                    }
+                }
+
+                // Navbar nav
+                .navbar-nav {
+                    .nav-item {
+                        margin-right: .5rem;
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+                    }
+
+                    .nav-link {
+                        padding-top: $navbar-nav-link-padding-y;
+                        padding-bottom: $navbar-nav-link-padding-y;
+                        border-radius: $navbar-nav-link-border-radius;
+                    }
+
+                    .nav-link-icon {
+                        padding-left: .75rem;
+                        padding-right: .75rem;
+                        border-radius: $navbar-nav-link-border-radius;
+
+                        i {
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Navabr toggler
+
+.navbar-toggler-icon {
+    width: $navbar-toggler-icon-width;
+    height: $navbar-toggler-icon-height;
+}
+
+// Keyframes
+
+@keyframes show-navbar-collapse {
+    0% {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

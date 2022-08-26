@@ -1,0 +1,17 @@
+//
+// Card placeholder
+//
+
+.card-placeholder {
+    padding: 3rem 0;
+    background-color: transparent;
+    border: 1px dashed $gray-300;
+    @include box-shadow(none);
+
+    &:hover {
+        border-color: darken($gray-300, 7%);
+    }
+    .card-body {
+        text-align: center;
+    }
+}

@@ -1,0 +1,76 @@
+//
+// Pills
+//
+
+
+.nav-pills-icon {
+    .nav-link {
+        &:not(.active) {
+            background-color: $nav-pills-link-bg;
+        }
+
+        &:not(:last-child) {
+            margin-right: .5rem;
+        }
+    }
+}
+
+@include media-breakpoint-up(md) {
+    .nav-pills-circle {
+        padding: 0 50px;
+
+        .nav-item {
+            min-width: 200px;
+            background: transparent;
+            border: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        .nav-link {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            margin: auto;
+            border-radius: 50%;
+            background: $nav-pills-link-bg;
+            color: color-yiq($nav-pills-link-bg);
+            z-index: 10;
+        }
+
+        &.nav-pills-connect {
+            .nav-item {
+                &:not(:last-child ) {
+                    &::before {
+                        content: "";
+                        display: block;
+                        position: relative;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(50%, 50%);
+                        height: 1px;
+                        width: 50%;
+                        background: $nav-pills-link-bg;
+                        z-index: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.nav-pills-contained {
+    padding: 3px;
+    background-color: $gray-200;
+    @include border-radius($border-radius);
+
+    .nav-link {
+        &.active {
+            background: theme-color("neutral");
+            color: $gray-700;
+        }
+    }
+}
